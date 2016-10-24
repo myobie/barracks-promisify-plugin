@@ -4,7 +4,7 @@
   "description": "A plugin for barracks to support Promises in effects and subscriptions",
   "main": "index.js",
   "scripts": {
-    "test": "standard && NODE_ENV=test node -r babel-register test",
+    "test": "standard index.js test.js promisify-send.js && NODE_ENV=test node -r babel-register test",
     "watch": "watch 'npm t'"
   },
   "repository": {
