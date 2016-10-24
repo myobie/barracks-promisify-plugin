@@ -2,7 +2,7 @@
 
 require('whatwg-fetch')
 const choo = require('choo')
-const promisifyPlugin = require('../')
+const promisifyPlugin = require('../') // require('barracks-promisify-plugin')
 const html = require('choo/html')
 const logPlugin = require('choo-log')
 const debounce = require('debounce')
@@ -47,7 +47,7 @@ app.model({
     }
   },
   subscriptions: {
-    regularlyFetchStargazersCount: (send) => every(60000, () => send('fetchStargazersCount'))
+    regularlyFetchStargazersCount: send => every(60000, () => send('fetchStargazersCount'))
   }
 })
 
