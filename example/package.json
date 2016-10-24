@@ -1,0 +1,27 @@
+{
+  "name": "example-choo-app-using-promisify-plugin",
+  "version": "1.0.0",
+  "description": "Example choo app using promisify plugin",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo index.js --open",
+    "test": "echo \"Error: no tests\" && exit 1"
+  },
+  "author": "Nathan Herald <me@nathanherald.com> (http://nathanherald.com)",
+  "license": "MIT",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "dependencies": {
+    "choo": "^3.3.0",
+    "choo-log": "^1.4.1",
+    "debounce": "^1.0.0",
+    "whatwg-fetch": "^1.0.0"
+  },
+  "devDependencies": {
+    "babelify": "^7.3.0",
+    "budo": "^9.2.1"
+  }
+}

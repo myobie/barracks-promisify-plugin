@@ -56,75 +56,7 @@ send('updateStargazersCount', 1).then(() => console.log('up and running'))
 This plugin works perfectly fine with choo as well, since choo is just
 an opinionated wrapper around barracks.
 
-```js
-const choo = require('choo')
-const promisifyPlugin = require('barracks-promisify-plugin')
-const html = require('choo/html')
-
-const app = choo()
-app.use(promisifyPlugin())
-
-function every (interval, cb) {
-  return new Promise((_, reject) => {
-    const intervalId = setInterval(() => {
-      Promise.resolve(cb()).catch(e => {
-        clearInterval(intervalId)
-        reject(e)
-      })
-    }, interval)
-  })
-}
-
-app.model({
-  state: {
-    stars: null,
-    loadingState: 'loading'
-  },
-  reducers: {
-    updateStargazersCount: (_, data) => ({ stars: data }),
-    loading: () => ({ loadingState: 'loading' }),
-    loaded: () => ({ loadingState: 'loaded' })
-  },
-  effects: {
-    fetchStargazersCount: async (_, __, send) => {
-      await send('loading')
-      const response = await fetch("https://api.github.com/repos/yarnpkg/yarn")
-      const json = await response.json()
-      const count = json.stargazers_count
-      await send('updateStargazersCount', count)
-      await send('loaded')
-    }
-  },
-  subscriptions: {
-    regularlyFetchStargazersCount: (send) => every(60000, () => send('fetchStargazersCount'))
-  }
-})
-
-const loadingMessage = state => {
-  if (state.loadingState === 'loading') {
-    return html`
-      <p><em>Fetching stargazers count...</em></p>
-    `
-  } else {
-    return ''
-  }
-}
-
-const mainView = (state, prev, send) => html`
-  <main>
-    <h1>Yarn Stars!</h1>
-    ${loadingMessage(state)}
-    <p>Stargazers count: ${state.count}</p>
-  </main>
-`
-
-app.router((route) => [
-  route('/', mainView)
-])
-
-const tree = app.start()
-document.body.appendChild(tree)
-```
+Checkout the `example` folder for a full choo app using this plugin.
 
 ## Tests
 
