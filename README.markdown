@@ -96,9 +96,7 @@ app.model({
     }
   },
   subscriptions: {
-    regularlyFetchStargazersCount: async (send) => {
-      every(60000, () => send('fetchStargazersCount'))
-    }
+    regularlyFetchStargazersCount: (send) => every(60000, () => send('fetchStargazersCount'))
   }
 })
 
